@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="HealHub — Arabic-first multi-role healthcare coordination prototype built with Flutter and Firebase." />
+  <title>HealHub — Flutter & Firebase Healthcare Prototype</title>
+  <style>
+    :root {
+      --bg:#07111f;
+      --panel:#0d1b2b;
+      --panel-2:#10243a;
+      --text:#eef6ff;
+      --muted:#9fb2c7;
+      --accent:#54d6c4;
+      --accent-2:#6ea8ff;
+      --border:rgba(255,255,255,.09);
+      --shadow:0 24px 80px rgba(0,0,0,.28);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:radial-gradient(circle at 85% 10%,rgba(110,168,255,.14),transparent 32%),radial-gradient(circle at 10% 25%,rgba(84,214,196,.10),transparent 26%),var(--bg);color:var(--text);line-height:1.6}
+    a{color:inherit}
+    .wrap{width:min(1120px,92vw);margin:auto}
+    .nav{display:flex;justify-content:space-between;align-items:center;padding:24px 0;gap:16px}
+    .brand{font-weight:800;letter-spacing:.04em}.brand span{color:var(--accent)}
+    .nav-links{display:flex;gap:18px;flex-wrap:wrap}.nav-links a{text-decoration:none;color:var(--muted);font-size:.95rem}.nav-links a:hover{color:var(--text)}
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding:64px 0 92px}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);background:rgba(255,255,255,.03);padding:7px 12px;border-radius:999px;color:var(--muted);font-size:.86rem}
+    h1{font-size:clamp(2.7rem,7vw,5.9rem);line-height:.97;margin:20px 0 24px;letter-spacing:-.055em}
+    h1 em{font-style:normal;color:var(--accent)}
+    .lead{font-size:1.14rem;color:var(--muted);max-width:700px}
+    .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 17px;border-radius:12px;text-decoration:none;font-weight:700;border:1px solid var(--border)}
+    .btn.primary{background:linear-gradient(135deg,var(--accent),#3ab9de);color:#042021;border:0}.btn.secondary{background:rgba(255,255,255,.04)}
+    .hero-card{background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018));border:1px solid var(--border);border-radius:28px;padding:20px;box-shadow:var(--shadow);transform:rotate(1.2deg)}
+    .phone-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.phone-grid img{width:100%;display:block;border-radius:18px;border:1px solid var(--border);background:#fff}
+    section{padding:78px 0;border-top:1px solid var(--border)}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:28px;margin-bottom:34px}.section-head h2{font-size:clamp(2rem,4vw,3.3rem);margin:0;letter-spacing:-.035em}.section-head p{max-width:620px;margin:0;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:rgba(255,255,255,.035);border:1px solid var(--border);border-radius:20px;padding:22px}.card h3{margin:0 0 8px}.card p{margin:0;color:var(--muted)}
+    .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.step{position:relative;background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:20px}.step b{display:block;color:var(--accent);font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:7px}.step span{color:var(--muted)}
+    .tech{display:flex;gap:10px;flex-wrap:wrap}.chip{border:1px solid var(--border);background:rgba(255,255,255,.035);padding:8px 11px;border-radius:999px;color:#d9e7f5;font-size:.92rem}
+    .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.gallery img{width:100%;display:block;border-radius:16px;border:1px solid var(--border)}
+    .callout{background:linear-gradient(135deg,rgba(84,214,196,.10),rgba(110,168,255,.11));border:1px solid var(--border);border-radius:24px;padding:28px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}.callout h3{font-size:1.7rem;margin:0 0 8px}.callout p{margin:0;color:var(--muted)}
+    footer{padding:44px 0 60px;color:var(--muted);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    @media(max-width:860px){.hero{grid-template-columns:1fr;gap:30px;padding-top:34px}.grid{grid-template-columns:1fr}.flow{grid-template-columns:repeat(2,1fr)}.gallery{grid-template-columns:repeat(2,1fr)}.section-head{display:block}.section-head p{margin-top:12px}.callout{grid-template-columns:1fr}.nav-links{display:none}}
+    @media(max-width:520px){.flow{grid-template-columns:1fr}.phone-grid{grid-template-columns:1fr 1fr}.gallery{grid-template-columns:1fr 1fr}section{padding:58px 0}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav" aria-label="Primary navigation">
+      <div class="brand">HEAL<span>HUB</span></div>
+      <div class="nav-links">
+        <a href="#product">Product</a><a href="#engineering">Engineering</a><a href="#flow">Flow</a><a href="#gallery">Gallery</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div>
+        <span class="eyebrow">Flutter · Firebase · Arabic-first · 2025</span>
+        <h1>Healthcare coordination, built around <em>real user roles.</em></h1>
+        <p class="lead">HealHub is a multi-role healthcare prototype connecting patients and doctors across clinics through scheduling, prescriptions, community features, ratings, and notifications — designed as a complete product flow rather than a collection of isolated screens.</p>
+        <div class="cta">
+          <a class="btn primary" href="#product">Explore the product</a>
+          <a class="btn secondary" href="https://github.com/Karamalawaj/healhub-showcase" rel="noopener">View repository</a>
+        </div>
+      </div>
+      <div class="hero-card" aria-label="HealHub application screenshots">
+        <div class="phone-grid">
+          <img alt="HealHub mobile interface" src="https://github.com/user-attachments/assets/0ead5bbe-94ee-453f-a01d-aac993c6e08c" />
+          <img alt="HealHub mobile interface" src="https://github.com/user-attachments/assets/af7d5ab5-752e-4eda-9072-7755a546b7f4" />
+          <img alt="HealHub mobile interface" src="https://github.com/user-attachments/assets/5d253efd-ce95-4ba2-abcb-9280d10fb816" />
+          <img alt="HealHub mobile interface" src="https://github.com/user-attachments/assets/bcc456f7-d706-47fe-b28d-52a1dd38c8b2" />
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <main>
+    <section id="product"><div class="wrap">
+      <div class="section-head"><h2>Two roles. One coordinated experience.</h2><p>The prototype treats patient and doctor journeys as connected workflows. Scheduling, prescriptions, community activity, ratings, and notifications share the same product context instead of existing as disconnected features.</p></div>
+      <div class="grid">
+        <article class="card"><h3>Patient experience</h3><p>Discover doctors, inspect profiles, book against available schedules, follow appointment status, read prescriptions, rate care, and participate in the community.</p></article>
+        <article class="card"><h3>Doctor experience</h3><p>Configure specialty and weekly availability, review appointments, manage confirmed visits, issue prescriptions, receive notifications, and participate in community content.</p></article>
+        <article class="card"><h3>Shared coordination</h3><p>Role-aware state and Firebase-backed flows keep the two experiences connected around the same appointment and communication lifecycle.</p></article>
+      </div>
+    </div></section>
+
+    <section id="engineering"><div class="wrap">
+      <div class="section-head"><h2>Engineering focus</h2><p>HealHub was built as a working portfolio prototype with attention to application structure, reactive state, Firebase integration, scheduling logic, and clear separation between product functionality and production-security requirements.</p></div>
+      <div class="grid">
+        <article class="card"><h3>Role-aware architecture</h3><p>Flutter screens and routing adapt to patient and doctor responsibilities while GetX coordinates controllers, dependencies, and reactive state.</p></article>
+        <article class="card"><h3>Schedule-aware booking</h3><p>Doctor working hours and appointment lifecycle logic form the basis for availability and booking rather than treating appointments as static records.</p></article>
+        <article class="card"><h3>Production-aware scope</h3><p>The showcase explicitly separates prototype behavior from production authorization, App Check, hardened Firebase rules, compliance, and infrastructure controls.</p></article>
+      </div>
+      <div class="tech" style="margin-top:24px">
+        <span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">GetX</span><span class="chip">Firebase Auth</span><span class="chip">Cloud Firestore</span><span class="chip">Firebase Messaging</span><span class="chip">Local Notifications</span><span class="chip">Cloudinary</span><span class="chip">Cached Network Image</span><span class="chip">Lottie</span>
+      </div>
+    </div></section>
+
+    <section id="flow"><div class="wrap">
+      <div class="section-head"><h2>Example appointment flow</h2><p>A recruiter or reviewer can understand the product in seconds: discovery leads to schedule-aware booking, doctor-side handling, and a connected follow-up experience.</p></div>
+      <div class="flow">
+        <div class="step"><b>01 · Discover</b><strong>Find a doctor</strong><br><span>Browse profiles and specialties.</span></div>
+        <div class="step"><b>02 · Book</b><strong>Select availability</strong><br><span>Choose a slot based on working hours.</span></div>
+        <div class="step"><b>03 · Coordinate</b><strong>Doctor reviews visit</strong><br><span>Appointment moves through its lifecycle.</span></div>
+        <div class="step"><b>04 · Follow up</b><strong>Prescription & feedback</strong><br><span>Patient sees outcomes and can rate care.</span></div>
+      </div>
+    </div></section>
+
+    <section id="gallery"><div class="wrap">
+      <div class="section-head"><h2>Product gallery</h2><p>Selected screens from the working prototype. The full source remains private; the public showcase is intentionally sanitized.</p></div>
+      <div class="gallery">
+        <img alt="HealHub screen" src="https://github.com/user-attachments/assets/6814d6f6-7e15-4664-8bec-0ad99212a7e8" />
+        <img alt="HealHub screen" src="https://github.com/user-attachments/assets/3f284b60-2bcf-49a4-92ad-5c8c6b89a26a" />
+        <img alt="HealHub screen" src="https://github.com/user-attachments/assets/5d5e9406-67c2-45a4-be12-29bd7b6188a7" />
+        <img alt="HealHub screen" src="https://github.com/user-attachments/assets/699b512c-7574-4330-ba80-6512b31212f4" />
+        <img alt="HealHub screen" src="https://github.com/user-attachments/assets/8b00e92f-e711-4f21-ac0d-6f8c7b880c6a" />
+        <img alt="HealHub screen" src="https://github.com/user-attachments/assets/904f9696-6332-4ec9-b9ea-68245d046517" />
+        <img alt="HealHub screen" src="https://github.com/user-attachments/assets/6b98ae78-0388-48f2-88e5-8e7554c64e4c" />
+        <img alt="HealHub screen" src="https://github.com/user-attachments/assets/10294318-b958-4650-b33d-494e16bc5435" />
+      </div>
+    </div></section>
+
+    <section><div class="wrap">
+      <div class="callout">
+        <div><h3>Built as a portfolio-safe case study.</h3><p>No production credentials, private Firebase rules, sensitive infrastructure, or proprietary application source are exposed here.</p></div>
+        <a class="btn primary" href="https://github.com/Karamalawaj/healhub-showcase" rel="noopener">Repository details</a>
+      </div>
+    </div></section>
+  </main>
+
+  <div class="wrap"><footer><span>© Karam Alawaj · HealHub</span><span>Private source · Public portfolio showcase</span></footer></div>
+</body>
+</html>

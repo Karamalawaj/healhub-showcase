@@ -4,6 +4,12 @@
 
 HealHub is an Arabic-first healthcare application prototype connecting patients and doctors across multiple clinics through role-aware scheduling, prescription, community, rating, and notification workflows.
 
+## Live Project Showcase
+
+**Recruiter-friendly live view:** https://karamalawaj.github.io/healhub-showcase/
+
+The live page presents the product flow, engineering decisions, architecture, and selected screens in a fast, portfolio-safe format. It is deployed automatically from this repository with GitHub Pages.
+
 ## Product Preview
 
 <div align="center">
